@@ -1,0 +1,37 @@
+// https://dev.to/web2033/vite-enabling-https-on-localhost-2ckf
+
+
+Running your site locally with HTTPS using mkcert
+https://github.com/FiloSottile/mkcert
+
+Install mkcert package (Windows 10)
+
+    choco install mkcert
+
+global install (one time)
+
+    mkcert -install
+
+then in project folder
+
+    mkcert localhost
+
+Created a new certificate valid for the following names 📜 "localhost"
+The certificate is at "./localhost.pem" and the key at "./localhost-key.pem" ✅ It will expire on 18 June 2023 🗓
+
+Edit vite.config.js
+
+import { defineConfig } from 'vite'
+import fs from 'fs'
+
+export default defineConfig({
+  server: {
+    open: true,
+    https: {
+      key: fs.readFileSync('localhost-key.pem'),
+      cert: fs.readFileSync('localhost.pem'),
+    },
+  },
+})
+
+

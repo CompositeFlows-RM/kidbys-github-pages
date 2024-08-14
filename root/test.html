@@ -1,0 +1,255 @@
+<div id="treeSolveAssistant">
+    <div id="headersCoreView">
+        <div id="headersCore">
+            <div class="header-left"><a class="chain-backwards">
+                    <div class="chain-backwards-icon"></div>
+                </a><a class="list-backwards">
+                    <div class="down-triangle-icon"></div>
+                </a></div>
+            <div class="header-centre">
+                <h1>-Pent -building</h1>
+                <div class="header-buttons"><a class="main-menu">
+                        <div class="hamburger-icon"></div>
+                    </a></div>
+            </div>
+            <div class="header-right"></div>
+        </div>
+    </div>
+    <div id="stepView" class="raw">
+        <div class="step-discussion">
+            <div class="discussion">
+                <h4 class="title-text">Pent shed side calculator</h4>
+                <div id="inputView">
+                    <div class="nft-collapse-group">
+                        <button type="button">Hide defaults</button>
+
+                        <div class="nft-i-numeric">
+                            <h4>Max inter-stud distance (mm)</h4>
+                            <div class="input-wrapper">
+                                <div class="title-table">
+                                    <div class="title-row">
+                                        <div class="title-cell">
+                                            <div class="error"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input id="nt_MaxStudDistance" required="" tabindex="0" min="100" max="1000"
+                                    type="number" placeholder="max inter-stud distance">
+                            </div>
+                        </div>
+
+                        <div class="nft-i-numeric">
+                            <h4>Framing pivot standard to heavy (mm)</h4>
+                            <div class="input-wrapper">
+                                <div class="title-table">
+                                    <div class="title-row">
+                                        <div class="title-cell">
+                                            <div class="error"></div>
+                                        </div>
+                                    </div>
+                                </div><input id="nt_FramingSizePivot" required="" tabindex="0" min="20" max="1000"
+                                    type="number" placeholder="framing pivot">
+                            </div>
+                        </div>
+                        <div class="nft-i-numeric">
+                            <h4>Panel floor overhang (mm)</h4>
+                            <div class="input-wrapper">
+                                <div class="title-table">
+                                    <div class="title-row">
+                                        <div class="title-cell">
+                                            <div class="error"></div>
+                                        </div>
+                                    </div>
+                                </div><input id="nt_PanelFloorOverhangStandard" required="" tabindex="0" min="0"
+                                    max="100" type="number" placeholder="panel floor overhang">
+                            </div>
+                        </div>
+                        <div class="nft-i-numeric">
+                            <h4>Heavy duty panel floor overhang (mm)</h4>
+                            <div class="input-wrapper">
+                                <div class="title-table">
+                                    <div class="title-row">
+                                        <div class="title-cell">
+                                            <div class="error"></div>
+                                        </div>
+                                    </div>
+                                </div><input id="nt_PanelFloorOverhangHeavy" required="" tabindex="0" min="0" max="100"
+                                    type="number" placeholder="heavy duty floor overhang">
+                            </div>
+                        </div>
+                        <div class="nft-i-numeric">
+                            <h4>Shiplap bottom overhang (mm)</h4>
+                            <div class="input-wrapper">
+                                <div class="title-table">
+                                    <div class="title-row">
+                                        <div class="title-cell">
+                                            <div class="error"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <nput id="nt_ShiplapBottomOverhang" required="" tabindex="0" min="0" max="100"
+                                    type="number" placeholder="shiplap bottom overhang">
+                            </div>
+                        </div>
+                        <div class="nft-i-numeric">
+                            <h4>Max side length (mm)</h4>
+                            <div class="input-wrapper">
+                                <div class="title-table">
+                                    <div class="title-row">
+                                        <div class="title-cell">
+                                            <div class="error"></div>
+                                        </div>
+                                    </div>
+                                </div><input id="nt_MaxSidePanelLength" required="" tabindex="0" min="1000" max="5000"
+                                    type="number" placeholder="max side length">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="nft-display-group">
+                        <h4 class="label">Shed</h4>
+                        <div class="display-contents">
+                            <div class="nft-i-numeric">
+                                <h4>Floor depth (mm)</h4>
+                                <div class="input-wrapper">
+                                    <div class="title-table">
+                                        <div class="title-row">
+                                            <div class="title-cell">
+                                                <div class="error"></div>
+                                            </div>
+                                        </div>
+                                    </div><input id="nt_PentFloorDepth" required="" tabindex="0" min="100" max="20000"
+                                        type="number" placeholder="floor depth">
+                                </div>
+                            </div>
+                            <div class="nft-i-numeric">
+                                <h4>Front height (mm)</h4>
+                                <div class="input-wrapper">
+                                    <div class="title-table">
+                                        <div class="title-row">
+                                            <div class="title-cell">
+                                                <div class="error"></div>
+                                            </div>
+                                        </div>
+                                    </div><input id="nt_PentFrontHeight" required="" tabindex="0" min="100" max="20000"
+                                        type="number" placeholder="front height">
+                                </div>
+                            </div>
+                            <div class="nft-i-numeric">
+                                <h4>Back height (mm)</h4>
+                                <div class="input-wrapper">
+                                    <div class="title-table">
+                                        <div class="title-row">
+                                            <div class="title-cell">
+                                                <div class="error"></div>
+                                            </div>
+                                        </div>
+                                    </div><input id="nt_PentBackHeight" required="" tabindex="0" min="100" max="20000"
+                                        type="number" placeholder="back height">
+                                </div>
+                            </div>
+                            <div class="nft-i-select selected">
+                                <h4>Side build count</h4><select>
+                                    <option class="select-default" value="">--select side build count--</option>
+                                    <option value="">1</option>
+                                    <option value="">2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="nft-display-group">
+                        <h4 class="label">Timber</h4>
+                        <div class="display-contents">
+                            <div class="nft-i-numeric">
+                                <h4>Framing timber width (mm)</h4>
+                                <div class="input-wrapper">
+                                    <div class="title-table">
+                                        <div class="title-row">
+                                            <div class="title-cell">
+                                                <div class="error"></div>
+                                            </div>
+                                        </div>
+                                    </div><input id="nt_FramingWidth" required="" tabindex="0" min="10" max="500"
+                                        type="number" placeholder="framing width">
+                                </div>
+                            </div>
+                            <div class="nft-i-numeric">
+                                <h4>Framing timber depth (mm)</h4>
+                                <div class="input-wrapper">
+                                    <div class="title-table">
+                                        <div class="title-row">
+                                            <div class="title-cell">
+                                                <div class="error"></div>
+                                            </div>
+                                        </div>
+                                    </div><input id="nt_FramingDepth" required="" tabindex="0" min="10" max="500"
+                                        type="number" placeholder="framing depth">
+                                </div>
+                            </div>
+                            <div class="nft-i-numeric">
+                                <h4>Roof rail timber width (mm)</h4>
+                                <div class="input-wrapper">
+                                    <div class="title-table">
+                                        <div class="title-row">
+                                            <div class="title-cell">
+                                                <div class="error"></div>
+                                            </div>
+                                        </div>
+                                    </div><input id="nt_RoofRailWidth" required="" tabindex="0" min="10" max="500"
+                                        type="number" placeholder="Roof rail width">
+                                </div>
+                            </div>
+                            <div class="nft-i-numeric">
+                                <h4>Roof rail timber depth (mm)</h4>
+                                <div class="input-wrapper">
+                                    <div class="title-table">
+                                        <div class="title-row">
+                                            <div class="title-cell">
+                                                <div class="error"></div>
+                                            </div>
+                                        </div>
+                                    </div><input id="nt_RoofRailDepth" required="" tabindex="0" min="10" max="500"
+                                        type="number" placeholder="roof rail depth">
+                                </div>
+                            </div>
+                            <div class="nft-i-numeric">
+                                <h4>Shiplap butting width (mm)</h4>
+                                <div class="input-wrapper">
+                                    <div class="title-table">
+                                        <div class="title-row">
+                                            <div class="title-cell">
+                                                <div class="error"></div>
+                                            </div>
+                                        </div>
+                                    </div><input id="nt_ShiplapButtingWidth" required="" tabindex="0" min="40" max="400"
+                                        type="number" placeholder="shiplap butting width">
+                                </div>
+                            </div>
+                            <div class="nft-i-numeric">
+                                <h4>Shiplap depth (mm)</h4>
+                                <div class="input-wrapper">
+                                    <div class="title-table">
+                                        <div class="title-row">
+                                            <div class="title-cell">
+                                                <div class="error"></div>
+                                            </div>
+                                        </div>
+                                    </div><input id="nt_ShiplapDepth" required="" tabindex="0" min="10" max="500"
+                                        type="number" placeholder="shiplap depth">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="step-options">
+            <a class="option">
+                <p>Calculate</p>
+            </a>
+        </div>
+    </div>
+</div>

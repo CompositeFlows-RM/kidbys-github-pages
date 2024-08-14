@@ -1,0 +1,33 @@
+{
+  "name": "documentation-assembler-assembler-view",
+  "description": "Docs Assembler: Streamline documentation by organising and reusing elements like with code. For efficient development and maintenance of larger systems.",
+  "version": "0.0.1",
+  "author": "netoftrees",
+  "type": "module",
+  "scripts": {
+    "ck": "tsc --noEmit",
+    "dev": "vite",
+    "build": "tsc && vite build --mode production",
+    "b": "tsc && vite build --mode production && vite build --mode development",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "actions": "^1.3.0",
+    "deep-diff": "^1.0.2",
+    "fast-json-patch": "^3.1.1",
+    "interfaces": "^0.0.3",
+    "modules": "^0.4.0",
+    "settings": "^0.1.1",
+    "state": "^0.2.0",
+    "views": "^0.0.0"
+  },
+  "devDependencies": {
+    "cssnano": "*",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "sass": "*",
+    "typescript": "*",
+    "vite": "*",
+    "vite-plugin-mkcert": "^1.16.0"
+  },
+  "repository": "https://github.com/CompositeFlows-author/tree-editor"
+}

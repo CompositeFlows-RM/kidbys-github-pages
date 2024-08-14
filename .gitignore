@@ -1,0 +1,14 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+build
+build-ssr
+*.local
+public
+
+dist/
+
+/zz temp/
+
+/.vs/
