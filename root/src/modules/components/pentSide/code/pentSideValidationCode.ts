@@ -143,7 +143,7 @@ const pentSideValidationCode = {
         }
 
         if (pent.maxPanelLength < 100
-            || pent.maxPanelLength > 5000
+            || pent.maxPanelLength > 10000
         ) {
 
             alertText += `maxPanelLength is less than 100 or greater than 5000

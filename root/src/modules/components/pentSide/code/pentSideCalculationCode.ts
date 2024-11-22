@@ -573,47 +573,55 @@ const pentSideCalculationCode = {
         currentPageChildren = [];
 
         const pent = state.pent;
-        pent.floorDepth = pent.floorDepth ?? 0;
-        pent.frontHeight = pent.frontHeight ?? 0;
-        pent.backHeight = pent.backHeight ?? 0;
+        pent.floorDepth = pent.floorDepth ?? 0; // measurement front to back
+        pent.frontHeight = pent.frontHeight ?? 0; // front panel height
+        pent.backHeight = pent.backHeight ?? 0; // back panel height
 
         const floorOverhang = pent.framingWidth > pent.framingSizePivot ? pent.floorOverhangHeavy : pent.floorOverhangStandard;
-        const frameBottomLength = pent.floorDepth + (2 * floorOverhang);
+        const frameBottomLength = pent.floorDepth + (2 * floorOverhang); // length front to back along the floor - includes overhang
 
         const framingSize = `${pent.framingWidth}mm x ${pent.framingDepth}mm`;
 
 
-        // side sizes
+        // side panel sizes
         const adjustedFrameBottomLength = frameBottomLength - pent.framingWidth; // Because the roof rails will sit on the back of the front panels frame not the the front
-        const triangleHeight = pent.frontHeight - pent.backHeight;
-        const roofAngleRadians = Math.atan2(triangleHeight, adjustedFrameBottomLength);
+        const triangleHeight = pent.frontHeight - pent.backHeight; // how mouch the roof rises from the back to  the front.
+        const roofAngleRadians = Math.atan2(triangleHeight, adjustedFrameBottomLength); // roof angle
 
-        const heightAdjustmentInt = pent.framingWidth * Math.tan(roofAngleRadians);
-        const adjustedFrontHeightInt = pent.frontHeight + heightAdjustmentInt;
-        const adjustedTriangleHeight = triangleHeight + heightAdjustmentInt;
+        const heightAdjustmentInt = pent.framingWidth * Math.tan(roofAngleRadians); // The front panel is square, so the roof will sit on the back of the front panel and rise heightAdjustmentInt above the front of the panel.
+        const adjustedFrontHeightInt = pent.frontHeight + heightAdjustmentInt; // The full height of the front upright if it were as thin as a pencil line.
+        const adjustedTriangleHeight = triangleHeight + heightAdjustmentInt; // The triangle height if the framing were pencil line thin.
 
         const roofAngleDegreesRounded = Math.round(roofAngleRadians * 180 / Math.PI);
 
-        const angleAdjustedFrameDepth = pent.framingDepth / Math.cos(roofAngleRadians);
-        const angleAdjustedRailWidth = pent.roofRailWidth / Math.cos(roofAngleRadians);
+        const angleAdjustedFrameDepth = pent.framingDepth / Math.cos(roofAngleRadians); // The top bar of the side panel is slopped. So it adds more to the shed height than if it were horizontal.
+        const angleAdjustedRailWidth = pent.roofRailWidth / Math.cos(roofAngleRadians); // The roof rail is slopped. So it adds more to the shed height than if it were horizontal.
 
-        // side panel sizes
-        const panelCountInt = Math.ceil(frameBottomLength / pent.maxPanelLength);
-        // const panelFrameBottomLengthInt = Math.round(frameBottomLength / panelCountInt);
-        const panelFrameTopLengthRoundedInt = Math.round(adjustedTriangleHeight / (Math.sin(roofAngleRadians) * panelCountInt));
+        const panelCountInt = Math.ceil(frameBottomLength / pent.maxPanelLength); // How many equal width panels are needed to make one shed side.
+        const panelFrameBottomLengthInt = Math.round(frameBottomLength / panelCountInt); // The length of the bottom bar for each side panel.
+        const panelFrameTopLengthRoundedInt = Math.round(adjustedTriangleHeight / (Math.sin(roofAngleRadians) * panelCountInt)); // The length of the top bar (slopped) for each side panel.
+
+        // The height of the front bar of the first panel from the front, 
+        //      (ie the full pencil thin height 
+        //          - minus the thickness of the bottom bar - it will sit on it.
+        //          - minus the angled thickness of the top bar - the sloped bar will sit on top of it - as it is sloped this value should be a little bigger than the thickness of the bottom bar.
+        //          + the angled thicknees of the roof rail. The roof rails will sit on the front and back panels but not on the sides, they overhang them, to the sides touch the roof boards - hence add roof rail angled thickness.
         const sideFrameFrontLengthInt = adjustedFrontHeightInt - pent.framingDepth - angleAdjustedFrameDepth + angleAdjustedRailWidth;
 
-        const panelAvailableLength = frameBottomLength - pent.framingDepth;
-        const studDivisionCount = Math.floor(panelAvailableLength / pent.maxStudDistance) + 1;
-        const horizontalSpacing = Math.round(panelAvailableLength / studDivisionCount);
-        const horizontalStudSpacer = horizontalSpacing - pent.framingDepth;
 
-        const spacingAdjustment = calculateFrameUprightAdjustment(
+        const panelAvailableLength = panelFrameBottomLengthInt - pent.framingDepth; // This is the length that needs to be split up with equally spaced uprights - the framing depth is subtracted as it is the terminating upright.
+        const studDivisionCount = Math.floor(panelAvailableLength / pent.maxStudDistance) + 1; // Add one to make sure below maxStudDistance.
+        const horizontalSpacing = Math.round(panelAvailableLength / studDivisionCount); // As we remved the terminating upright we can now consider this horizontal spacing as the spacing plus the depth of one upright.
+        const horizontalStudSpacer = horizontalSpacing - pent.framingDepth; // The spacing between studs.
+
+        // This is the drop in height of this upright compared to the front one for each spacing.
+        const spacingHeightAdjustment = calculateFrameUprightAdjustment(
             horizontalSpacing,
             roofAngleRadians
         );
 
-        const frameDepthAdjustment = calculateFrameUprightAdjustment(
+        // When two uprights are butted together - like the last upright on one panel and the first upright of the next panel - this is the drop in height for the second upright compared to the first.
+        const frameDepthHeightAdjustment = calculateFrameUprightAdjustment(
             pent.framingDepth,
             roofAngleRadians
         );
@@ -623,7 +631,7 @@ const pentSideCalculationCode = {
         let panelUprights: Array<number>;
         let runningAdjustment = 0;
         let uprightHeightRounded = 0;
-        let shiplapBoardCount = 0;
+        // let shiplapBoardCount = 0;
 
         for (let i = 0; i < panelCountInt; i++) {
 
@@ -632,79 +640,84 @@ const pentSideCalculationCode = {
             for (let j = 0; j <= studDivisionCount; j++) {
 
                 uprightHeightRounded = Math.round(sideFrameFrontLengthInt - runningAdjustment);
-
-                if (j === 0) {
-
-                    shiplapBoardCount = Math.ceil((uprightHeightRounded + pent.shiplapBottomOverhang) / pent.shiplapButtingWidth);
-                    shiplapBoardCounts.push(shiplapBoardCount);
-                }
-
                 panelUprights.push(uprightHeightRounded);
-                runningAdjustment += spacingAdjustment;
+
+                // if (j === 0) {
+
+                //     shiplapBoardCount = Math.ceil((uprightHeightRounded + pent.shiplapBottomOverhang) / pent.shiplapButtingWidth);
+                //     shiplapBoardCounts.push(shiplapBoardCount);
+                // }
+
+                if (j === studDivisionCount) {
+
+                    runningAdjustment += frameDepthHeightAdjustment;
+                }
+                else {
+                    runningAdjustment += spacingHeightAdjustment;
+                }
             }
 
             sideUprights.push(panelUprights);
-            runningAdjustment += frameDepthAdjustment;
         }
 
         // Need to get them to label each part so there is no confusion
         // Also want to split it out in more pages to make it easier
-        if (pent.buildPanelsTogether === true) {
+        // if (pent.buildPanelsTogether === true) {
 
-            const lengthsCountInt = pent.sideCount * panelCountInt;
-            let lengthsCount = `${lengthsCountInt} length`;
+        //     const lengthsCountInt = pent.sideCount * panelCountInt;
+        //     let lengthsCount = `${lengthsCountInt} length`;
 
-            if (lengthsCountInt > 1) {
+        //     if (lengthsCountInt > 1) {
 
-                lengthsCount = `${lengthsCount}s`;
-            }
+        //         lengthsCount = `${lengthsCount}s`;
+        //     }
 
-            let sideShiplapBoardCount = 0;
+        //     let sideShiplapBoardCount = 0;
 
-            for (let m = 0; m < shiplapBoardCounts.length; m++) {
+        //     for (let m = 0; m < shiplapBoardCounts.length; m++) {
 
-                sideShiplapBoardCount += shiplapBoardCounts[m];
+        //         sideShiplapBoardCount += shiplapBoardCounts[m];
+        //     }
+
+        //     printPanel(
+        //         pent,
+        //         lengthsCount,
+        //         frameBottomLength,
+        //         panelFrameTopLengthRoundedInt,
+        //         sideUprights.flat(),
+        //         panelAvailableLength,
+        //         horizontalStudSpacer,
+        //         sideShiplapBoardCount,
+        //         framingSize,
+        //         roofAngleDegreesRounded
+        //     );
+        // }
+        // else {
+        for (let k = 0; k < panelCountInt; k++) {
+
+            let panelLengthsCount = `${pent.sideCount} length`;
+
+            if (pent.sideCount > 1) {
+
+                panelLengthsCount = `${panelLengthsCount}s`;
             }
 
             printPanel(
                 pent,
-                lengthsCount,
-                frameBottomLength,
+                panelLengthsCount,
+                panelFrameBottomLengthInt,
                 panelFrameTopLengthRoundedInt,
-                sideUprights.flat(),
+                sideUprights[k],
                 panelAvailableLength,
                 horizontalStudSpacer,
-                sideShiplapBoardCount,
+                shiplapBoardCounts[k],
                 framingSize,
-                roofAngleDegreesRounded
+                roofAngleDegreesRounded,
+                `A${k + 1}`,
+                k
             );
         }
-        else {
-            for (let k = 0; k < panelCountInt; k++) {
-
-                let panelLengthsCount = `${pent.sideCount} length`;
-
-                if (pent.sideCount > 1) {
-
-                    panelLengthsCount = `${panelLengthsCount}s`;
-                }
-
-                printPanel(
-                    pent,
-                    panelLengthsCount,
-                    frameBottomLength,
-                    panelFrameTopLengthRoundedInt,
-                    sideUprights[k],
-                    panelAvailableLength,
-                    horizontalStudSpacer,
-                    shiplapBoardCounts[k],
-                    framingSize,
-                    roofAngleDegreesRounded,
-                    `A${k + 1}`,
-                    k
-                );
-            }
-        }
+        // }
 
         state.pages = pages;
         state.currentPageIndex = 0;
